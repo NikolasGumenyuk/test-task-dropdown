@@ -3,3 +3,21 @@
   height: 5vh;
   margin: 5vw;
 }
+
+.dropdownBtn {
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.droppedArea {
+  width: 100%;
+  background-color: rgb(188, 188, 188);
+}
+
+.dropdownList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}

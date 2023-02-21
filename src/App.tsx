@@ -1,8 +1,7 @@
 import { useState } from "react";
-import CountryOption from "./components/CounryOption/CountryOption";
 import Dropdown from "./components/Dropdown/Dropdown";
 import "./App.css";
-import UserOption from "./components/UserOption/UserOption";
+import { Data } from "./models/Data";
 
 const countries = [
   { name: "Norway", id: 1 },
@@ -34,44 +33,41 @@ const users = [
     name: "Veronica",
     surname: "Briar",
     id: 4,
-    image: "https://xsgame",
+    image: "https://xsgames.co/randomusers/assets/avatars/female/5.jpg",
   },
 ];
 
 function App() {
-  const [currentCountry, setCurrentCountry] = useState<string>("");
-  const [currentUser, setCurrentUser] = useState<string>("");
+  const [currentCountry, setCurrentCountry] = useState<Data>({
+    id: 0,
+    name: "Please select a country",
+  });
+  const [currentUser, setCurrentUser] = useState<Data>({
+    id: 0,
+    name: "Please select a user",
+  });
 
-  const handleChange = (name: string) => {
-    if (countries.some((country) => country.name === name)) {
-      return setCurrentCountry(name);
+  const handleChange = (item: Data) => {
+    if (countries.some((country) => country.name === item.name)) {
+      setCurrentCountry(item);
     }
-    if (users.some((user) => user.name === name)) {
-      return setCurrentUser(name);
+    if (users.some((user) => user.name === item.name)) {
+      setCurrentUser(item);
     }
-    console.log(name);
   };
 
   return (
-    <div className="App">
-      <Dropdown handleChange={handleChange} currentValue={currentCountry}>
-        {countries.map((country) => (
-          <CountryOption
-            key={country.id}
-            data={country}
-            isSelected={currentCountry === country.name}
-          />
-        ))}
-      </Dropdown>
-      <Dropdown handleChange={handleChange} currentValue={currentUser}>
-        {users.map((user) => (
-          <UserOption
-            key={user.id}
-            data={user}
-            isSelected={currentUser === user.name}
-          />
-        ))}
-      </Dropdown>
+    <div className="App" onClick={() => console.log("click")}>
+      <Dropdown
+        handleChange={handleChange}
+        currentValue={currentCountry}
+        data={countries}
+      />
+      <Dropdown
+        handleChange={handleChange}
+        currentValue={currentUser}
+        data={users}
+      />
     </div>
   );
 }
