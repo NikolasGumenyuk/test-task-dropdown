@@ -46,6 +46,7 @@ function App() {
     id: 0,
     name: "Please select a user",
   });
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleChange = (item: Data) => {
     if (countries.some((country) => country.name === item.name)) {
@@ -57,13 +58,17 @@ function App() {
   };
 
   return (
-    <div className="App" onClick={() => console.log("click")}>
+    <div className="App" onClick={() => setIsOpen(false)}>
       <Dropdown
+        isOpen={isOpen}
+        handleClose={setIsOpen}
         handleChange={handleChange}
         currentValue={currentCountry}
         data={countries}
       />
       <Dropdown
+        isOpen={isOpen}
+        handleClose={setIsOpen}
         handleChange={handleChange}
         currentValue={currentUser}
         data={users}

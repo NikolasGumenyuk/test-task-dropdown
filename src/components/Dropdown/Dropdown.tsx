@@ -4,14 +4,22 @@ import ListItem from "../LidstItem/ListItem";
 import styles from "./Dropdown.module.css";
 
 interface Props {
+  isOpen: boolean;
+  handleClose: (isOpen: boolean) => void;
   handleChange: (item: Data) => void;
   currentValue: Data;
   children?: React.ReactNode;
   data: Data[];
 }
 
-const Dropdown = ({ handleChange, currentValue, data }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Dropdown = ({
+  isOpen,
+  handleClose,
+  handleChange,
+  currentValue,
+  data,
+}: Props) => {
+  // const [isOpen, setIsOpen] = useState(false);
 
   const currentName = currentValue.surname
     ? `${currentValue.name} ${currentValue.surname} - ${
@@ -19,14 +27,20 @@ const Dropdown = ({ handleChange, currentValue, data }: Props) => {
       }`
     : currentValue.name;
 
-  const handleClick = (item: Data) => {
-    handleChange(item);
-    setIsOpen(!isOpen);
-  };
+  // const handleClick = (item: Data) => {
+  //   handleChange(item);
+  //   setIsOpen(!isOpen);
+  // };
 
   return (
     <div className={styles.dropdown}>
-      <button className={styles.dropdownBtn} onClick={() => setIsOpen(!isOpen)}>
+      <button
+        className={styles.dropdownBtn}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleClose(!isOpen);
+        }}
+      >
         {currentValue.image ? (
           <img src={currentValue.image} alt="avatar" height="100%" />
         ) : (
@@ -41,7 +55,7 @@ const Dropdown = ({ handleChange, currentValue, data }: Props) => {
               <ListItem
                 key={item.id}
                 item={item}
-                handleClick={handleClick}
+                handleClick={handleChange}
                 isSelected={currentValue.id === item.id}
               />
             ))}
