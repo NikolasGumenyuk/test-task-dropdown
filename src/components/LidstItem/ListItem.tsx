@@ -16,7 +16,10 @@ const ListItem = ({ item, handleClick, isSelected }: Props) => {
   return (
     <li
       className={`${styles.listItem} ${isSelected ? styles.selected : ""}`}
-      onClick={() => handleClick(item)}
+      onClick={(e) => {
+        e.preventDefault();
+        handleClick(item);
+      }}
     >
       {item.image ? <img src={item.image} alt="avatar" /> : ""}
       {itemName}
