@@ -1,0 +1,14 @@
+.listItem {
+  cursor: pointer;
+  flex-direction: row;
+  display: flex;
+  height: 5vh;
+}
+
+.listItem:hover {
+  background-color: gray;
+}
+
+.selected {
+  background-color: hotpink !important;
+}
